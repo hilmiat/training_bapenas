@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title> Hello vue!</title>
+  <script src="https://unpkg.com/vue"></script>
+<body>
+  <div id="myapp">
+    <my-component @kirim="cekKiriman"></my-component>
+  <div>
+  <script>
+  Vue.component('my-component',{
+    template:'<input @blur="kirimData">',
+    methods:{
+      kirimData(){
+        this.$emit('kirim');
+      }
+    }
+  });
+    var app  = new Vue({
+      el:'#myapp',
+      methods:{
+        cekKiriman(){
+          alert('ada kiriman');
+        }
+      }
+    })
+  </script>

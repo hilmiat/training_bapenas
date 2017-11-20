@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title> Hello vue!</title>
+  <script src="https://unpkg.com/vue"></script>
+<body>
+  <div id="myapp">
+    <ol>
+        <todo-item v-for="todo in mytodo"
+        :todo="todo"></todo-item>
+    </ol>
+  </div>
+  <script>
+Vue.component('todo-item',{
+  props: ['todo'],
+  template:
+  `
+    <li>{{todo.text}}</li>
+  `
+})
+var app = new Vue({
+  el:"#myapp",
+  data:{
+    mytodo:[
+      {text:'Belajar vue',isDone:false},
+      {text:'Belajar Bulma',isDone:false},
+      {text:'Bikin project',isDone:false},
+    ]
+  }
+})
+
+  </script>

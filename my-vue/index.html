@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title> Hello vue!</title>
+  <script src="https://unpkg.com/vue"></script>
+<body>
+  <div id="myapp">
+      <h1> Helooo....{{ reverseMessage }}</h1>
+      <input v-model="name" v-if="isShow"/>
+      <p>Anda menulis:{{name}}</p>
+      <ul>
+          <li v-for="n in names" v-text="n"></li>
+      </ul>
+      <button @click="addName" :title="title" :class="{'is-loading':isLoading}">add</button>
+      <button v-on:click="addName" v-bind:title="title">add</button>
+  </div>
+
+<script>
+var app = new Vue({
+  el: '#myapp',
+  data:{
+    message: ', Hello from vue..',
+    name:'',
+    names: ['Adi','Ade','Adu'],
+    title:'Title from vue',
+    isLoading: true,
+    isShow:true
+  },
+  computed:{
+    reverseMessage: function() {
+      return this.message.split('').reverse().join('')
+    }
+  },
+  methods:{
+    addName(){
+      this.names.push(this.name);
+      this.name = '';
+      this.isShow = false
+    }
+  }
+})
+
+// document.querySelector('#add').addEventListener('click',()=>{
+//   let name = document.querySelector('#nama');
+//   app.names.push(name.value);
+// });
+
+</script>
+
+</body>

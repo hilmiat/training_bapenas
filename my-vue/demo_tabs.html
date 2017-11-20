@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title> Hello vue!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+  <script src="https://unpkg.com/vue"></script>
+<body>
+  <div id="myapp">
+  <tabs>
+      <tab-item name="Page satu" :selected="true">Ini isi tabs 1</tab-item>
+      <tab-item name="dua">Ini isi tabs 2</tab-item>
+      <tab-item name="tiga">Ini isi tabs 3</tab-item>
+  </tabs>
+  
+  </div>
+<script>
+Vue.component('tab-item',{
+  template:`
+    <div v-show="isActive"><slot></slot></div>
+  `,
+  props:{
+    name:{requiered:true},
+    selected:{default:false}
+  },
+  data(){
+    return {
+      isActive:this.selected
+    }
+  },
+  computed:{
+      href(){
+        return '#'+this.name.toLowerCase().replace(/ /g,'-');
+  }
+  }
+})
+Vue.component('tabs',{
+  template:`
+  <div>
+      <div class="tabs">
+          <ul>
+            <li v-for="tab in tabs" :class="{'is-active':tab.isActive}">
+              <a :href="tab.href" @click="setActive(tab)">{{tab.name}}</a>
+            </li>
+          </ul>
+      </div>
+      <div class="tabs-details"><slot></slot></div>
+  </div>
+`,
+data(){
+  return {tabs:[]}
+},
+ created(){
+   this.tabs = this.$children;
+ },
+ methods:{
+   setActive(selectedTab){
+     this.tabs.forEach(tab=>{
+       tab.isActive = (tab.name == selectedTab.name);
+     })
+   }
+ }
+})
+var app = new Vue({
+  el:'#myapp'
+})
+</script>
